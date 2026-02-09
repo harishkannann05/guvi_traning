@@ -10,6 +10,14 @@ function App() {
   const [showCursor, setShowCursor] = useState(true);
   const [showSubtitle, setShowSubtitle] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    department: '',
+    year: '',
+    college: 'Kongu Engineering College'
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,6 +117,31 @@ function App() {
 
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleFormChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // Simulate API call
+    console.log('Form submitted:', formData);
+    alert('Thank you for registering! We will contact you soon.');
+    closeModal();
+    setFormData({
+      name: '',
+      email: '',
+      department: '',
+      year: '',
+      college: 'Kongu Engineering College'
+    });
   };
 
   return (
@@ -466,7 +499,11 @@ function App() {
             </p>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <button className="btn-primary" style={{ fontSize: '18px', padding: '20px 50px' }}>
+            <button
+              className="btn-primary"
+              style={{ fontSize: '18px', padding: '20px 50px' }}
+              onClick={openModal}
+            >
               🚀 Register Now and Step into the Future
             </button>
             <p style={{ marginTop: '24px', color: 'var(--text-light)' }}>
@@ -515,8 +552,103 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Registration Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[10001] flex items-center justify-center px-4">
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            onClick={closeModal}
+          ></div>
+
+          <div className="relative z-10 w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden animate-float">
+            <div className="bg-primary-gradient p-6 text-white relative">
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <h3 className="text-2xl font-bold font-display">Secure Your Spot 🚀</h3>
+              <p className="text-white/90 mt-1">Join the DevOps Revolution today.</p>
+            </div>
+
+            <form onSubmit={handleFormSubmit} className="p-8 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  value={formData.name}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-purple focus:border-transparent outline-none transition-all"
+                  placeholder="John Doe"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  value={formData.email}
+                  onChange={handleFormChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-purple focus:border-transparent outline-none transition-all"
+                  placeholder="john@example.com"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                  <input
+                    type="text"
+                    name="department"
+                    required
+                    value={formData.department}
+                    onChange={handleFormChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-purple focus:border-transparent outline-none transition-all"
+                    placeholder="CSE / IT"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                  <select
+                    name="year"
+                    required
+                    value={formData.year}
+                    onChange={handleFormChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-purple focus:border-transparent outline-none transition-all bg-white"
+                  >
+                    <option value="">Select Year</option>
+                    <option value="II">II Year</option>
+                    <option value="III">III Year</option>
+                    <option value="IV">IV Year</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-primary-gradient text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                >
+                  Confirm Registration
+                </button>
+                <p className="text-center text-xs text-gray-500 mt-3">
+                  By registering, you agree to our Terms & Conditions.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
