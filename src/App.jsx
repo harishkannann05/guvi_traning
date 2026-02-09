@@ -224,9 +224,14 @@ function App() {
             <button className="btn-primary" onClick={() => scrollToSection('registration')}>
               Register Now
             </button>
-            <button className="btn-secondary">
+            <a
+              href="/brochure.html"
+              target="_blank"
+              className="btn-secondary"
+              style={{ textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}
+            >
               📥 Download Brochure
-            </button>
+            </a>
           </div>
         </div>
       </section>
