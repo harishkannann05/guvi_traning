@@ -1,0 +1,9 @@
+{
+  "appId": "com.guvi.devops",
+  "appName": "DevOps Training App",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

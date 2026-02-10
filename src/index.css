@@ -34,6 +34,14 @@
   /* Animations */
   --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Ionic Integration */
+  --ion-background-color: var(--bg-white);
+  --ion-text-color: var(--text-primary);
+}
+
+ion-content {
+  --background: transparent;
 }
 
 * {
